@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "------run rc.final file-----"
+#echo "------run rc.final file-----"
 #echo "insmod wifi modules"
 #insmod  /lib/modules/3.4.39/8723ds.ko
 #insmod  /lib/modules/3.4.39/bcmdhd.ko
@@ -10,7 +10,7 @@ echo "------run rc.final file-----"
 
 export LD_LIBRARY_PATH=/usr/lib/eyesee-mpp:${LD_LIBRARY_PATH}
 ulimit -c unlimited
-echo /mnt/extsd/core.exe[%e].pid[%p].sig[%s] > /proc/sys/kernel/core_pattern
+echo /mnt/SDCARD/core.exe[%e].pid[%p].sig[%s] > /proc/sys/kernel/core_pattern
 
 for i in /etc/init.d/S??* ;do
 
@@ -33,10 +33,11 @@ for i in /etc/init.d/S??* ;do
     esac
 done
 
-#if [ -z "$(grep '\<vfat\>' /proc/mounts)" ]; then
-#    ! /bin/mount -t vfat /dev/mmcblk0 /mnt/extsd 2>/dev/null &&
-#    /bin/mount -t vfat /dev/mmcblk0p1 /mnt/extsd
-#fi
+if [ -z "$(grep '\<vfat\>' /proc/mounts)" ]; then
+    ! /bin/mount -t vfat /dev/mmcblk0 /mnt/SDCARD 2>/dev/null &&
+    /bin/mount -t vfat /dev/mmcblk0p1 /mnt/SDCARD
+fi
+
 if [ -z "$(grep '\<vfat\>' /proc/mounts)" ]; then
     ! /bin/mount -t vfat /dev/sda /mnt/exUDISK 2>/dev/null &&
     /bin/mount -t vfat /dev/sda1 /mnt/exUDISK
